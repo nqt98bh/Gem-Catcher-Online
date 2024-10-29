@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1999344630587397473}
   - component: {fileID: 4328062789489546724}
+  - component: {fileID: 4830887630330627217}
   - component: {fileID: -2172552280958685491}
   - component: {fileID: -2825484042087925688}
-  - component: {fileID: 4661449114325738950}
   m_Layer: 0
-  m_Name: WhiteGem
+  m_Name: ScoreIncrease
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 1775c0eb4d439ff43bd3e87ff7f3b95d, type: 3}
-  m_Color: {r: 0.5408307, g: 0.8901961, b: 0, a: 0.9843137}
+  m_Sprite: {fileID: 21300000, guid: 3fddbba54558e504b886aff5ecc499fd, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -87,6 +87,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4830887630330627217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5862154120822190570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d601b4cd25d92ff479937053d0af8efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
 --- !u!50 &-2172552280958685491
 Rigidbody2D:
   serializedVersion: 4
@@ -159,16 +172,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.18, y: 0.18}
   m_EdgeRadius: 0
---- !u!114 &4661449114325738950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5862154120822190570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e63f7a47a144be46b2563c3fb6b4ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5

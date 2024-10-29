@@ -7,9 +7,7 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
     public TextMeshProUGUI scoreText;
-    //public TextMeshProUGUI timeText;
-
-
+ 
     public float remainingTime = 60f;
     public int score { get; private set; } = 0; //tạo điểm bắt đầu =0
 
@@ -32,8 +30,6 @@ public class ScoreManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-       
-
     }
 
     //Khai báo một hàm tăng số điểm người chơi
@@ -87,24 +83,25 @@ public class ScoreManager : MonoBehaviour
         score += amount;
         Debug.Log("addscore");
     }
-    public void Reducescore(int x) //hàm nhận giá trị int và tên amount
+    public void Reducescore(int x) 
     {
 
         score -= x;
         Debug.Log("Reducescore");
     }
-    public  void Reducetime() //hàm nhận giá trị int và tên amount
+    public  void Reducetime(float z) 
     {
-        remainingTime -= 5;
+        remainingTime -= z;
         //UpdateUI();
        
         Debug.Log("reducetime");
     }
-    public  void AddTime()
+    public  void AddTime( float z)
     {
-        remainingTime += 10;
+        remainingTime += z;
         //UpdateUI();
         Debug.Log("extratime");
     }
 
+   
 }

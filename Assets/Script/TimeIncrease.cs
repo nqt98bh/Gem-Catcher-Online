@@ -1,22 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class RedGem : MonoBehaviour
+public class TimeIncrease : MonoBehaviour
 {
-    //private ScoreManager scoreManager;
+    
+    public float extraTime = 5f;
     public float speed = 5f;
-   
     void Update()
     {
         transform.Translate(Vector3.down * speed * Time.deltaTime); //tạo chuyển dộng rơi xuống
-
+        
     }
-
     void Awake()
     {
-        //scoreManager = FindObjectOfType<ScoreManager>();
-        //scoreManager = ScoreManager.Instance;
+        
     }
     void OnTriggerEnter2D(Collider2D other) //other là thông tin của bất kì collider va chạm với collider này
     {
@@ -26,8 +25,8 @@ public class RedGem : MonoBehaviour
             AudioSource audioSource = other.GetComponent<AudioSource>();
             audioSource.Play();
             Destroy(gameObject); //xóa GameObject đang gắn collider này, GameObject chính là đối tượng dc gắn script này
-            ScoreManager.Instance.Reducetime();
-            
+                                 // Gọi phương thức cộng điểm
+            ScoreManager.Instance.AddTime(5);
         }
 
         else if (other.gameObject.CompareTag("Ground"))
@@ -36,4 +35,5 @@ public class RedGem : MonoBehaviour
 
         }
     }
+    
 }
