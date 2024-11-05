@@ -1247,7 +1247,7 @@ Transform:
   m_GameObject: {fileID: 1039508535}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.55, z: 0}
+  m_LocalPosition: {x: 0, y: -3.49, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1303,7 +1303,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 26.5, y: 1}
+  m_Size: {x: 26.5, y: 0.8333}
   m_EdgeRadius: 0
 --- !u!1 &1090105788
 GameObject:
@@ -1690,13 +1690,13 @@ MonoBehaviour:
     SpawnInterval: 4
   - gemType: 2
     GemPrefab: {fileID: 5862154120822190570, guid: b3fede7e6e14d6d41af8c7ebbe51f4e2, type: 3}
-    SpawnInterval: 6
+    SpawnInterval: 15
   - gemType: 3
     GemPrefab: {fileID: 5862154120822190570, guid: 86d0f3c7368022d4cb8ee6e0a41c10ee, type: 3}
-    SpawnInterval: 8
+    SpawnInterval: 10
   - gemType: 4
     GemPrefab: {fileID: 1773192978549192049, guid: 471053dff94ba024a85d677bce4e1d33, type: 3}
-    SpawnInterval: 1
+    SpawnInterval: 6
 --- !u!1 &1242203137
 GameObject:
   m_ObjectHideFlags: 0
@@ -3202,7 +3202,7 @@ Transform:
   m_GameObject: {fileID: 2025262224}
   serializedVersion: 2
   m_LocalRotation: {x: 0.00008726013, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.77, y: -2.6, z: -0}
+  m_LocalPosition: {x: -7.74, y: -2.74, z: -0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3521,7 +3521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JumpAudioSource: {fileID: 2025262238}
-  jumpForce: 4
+  jumpForce: 5
   groundLayer:
     serializedVersion: 2
     m_Bits: 4294967295
