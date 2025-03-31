@@ -10,7 +10,7 @@ public class TimeIncrease : MonoBehaviour
     public float speed = 5f;
     void Update()
     {
-        transform.Translate(Vector3.down * speed * Time.deltaTime); //tạo chuyển dộng rơi xuống
+        //transform.Translate(Vector3.down * speed * Time.deltaTime); //tạo chuyển dộng rơi xuống
         
     }
     void Awake()

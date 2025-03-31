@@ -5,9 +5,10 @@ using UnityEngine;
 public class ScoreIncrease : MonoBehaviour
 {
     public float speed = 5f;
+    public Vector2 direction; 
     void Update()
     {
-        transform.Translate(Vector3.down * speed * Time.deltaTime); //tạo chuyển dộng rơi xuống
+        //transform.Translate(direction * speed * Time.deltaTime); //tạo chuyển dộng rơi xuống
         
     }
 
@@ -28,5 +29,6 @@ public class ScoreIncrease : MonoBehaviour
 
         }
     }
+    
     
 }

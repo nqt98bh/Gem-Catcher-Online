@@ -9,7 +9,7 @@ public class TimeReduce : MonoBehaviour
    
     void Update()
     {
-        transform.Translate(Vector3.down * speed * Time.deltaTime); //tạo chuyển dộng rơi xuống
+        //transform.Translate(Vector3.down * speed * Time.deltaTime); //tạo chuyển dộng rơi xuống
 
     }
 

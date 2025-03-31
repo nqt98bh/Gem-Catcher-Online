@@ -11,6 +11,7 @@ public class CharacterMovement : MonoBehaviour
     public float timeSpeedUp= 3f;
     public float originalSpeed;
     private bool isBoosted = false;
+    private Rigidbody rb;
 
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class CharacterMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         mainCamera = Camera.main;
         originalSpeed = speed;
+        rb = GetComponent<Rigidbody>();
     }
 
  
@@ -49,6 +51,7 @@ public class CharacterMovement : MonoBehaviour
             ConstrainPosition();
 
         }
+        
     }
     void ConstrainPosition()
     {

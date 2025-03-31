@@ -5,7 +5,7 @@ using UnityEngine;
 public class Jumping : MonoBehaviour
 {
     public AudioSource JumpAudioSource;
-    public float jumpForce = 1f; // Lực nhảy
+    [SerializeField] private float jumpForce = 1f; // Lực nhảy
     public LayerMask groundLayer; // Layer cho mặt đất
     private Rigidbody2D rb;
 
