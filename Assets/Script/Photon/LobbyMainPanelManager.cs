@@ -94,10 +94,10 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
         //If a player disconnects unexpectedly, Photon keeps their data in the room for this duration before removing them.
         PhotonNetwork.CreateRoom(roomName, roomOptions,null);
     }
-    //public override void OnCreatedRoom()  //khong khai bao ham OnCreateRoom
-    //{
-    //    Debug.Log("Created room");
-    //}
+    public override void OnCreatedRoom()  
+    {
+        Debug.Log("Created room");
+    }
     public override void OnJoinedRoom()
     {
         // joining (or entering) a room invalidates any cached lobby room list (even if LeaveLobby was not called due to just joining a room)
@@ -121,6 +121,15 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
             playerListEntries.Add(p.ActorNumber, entry);
         }
 
+
+    }
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        GameObject player = Instantiate(PlayerListEntriesPrafab);
+        player.transform.SetParent(InsideRoomPanel.transform);
+        player.transform.localScale = Vector3.one;
+        player.GetComponent<PlayerListEntry>().Initialize(newPlayer.ActorNumber, newPlayer.NickName);
+        playerListEntries.Add(newPlayer.ActorNumber, player);
 
     }
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -161,6 +170,7 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
         ClearRoomListView();
         UpdateCachedRoomList(roomList);
         UpdateRoomListView();
+        Debug.Log("Updated room list");
     }
 
     private void UpdateRoomListView()
@@ -206,14 +216,27 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
             {
                 cachedRoomList.Add(info.Name, info);
             }
+
+        }
+        foreach (var entry in  cachedRoomList)
+        {
+            Debug.Log(entry.Key);
         }
     }
-
+    public void OnBackButtonClicked()
+    {
+        if (PhotonNetwork.InLobby)
+        {
+            PhotonNetwork.LeaveLobby();
+        }
+    }
 
     //Inside Room//
     public void OnLeaveRoomButtonClicked()
     {
-        PhotonNetwork.LeaveRoom();
+        
+            PhotonNetwork.LeaveRoom();
+        
     }
     public override void OnLeftRoom()
     {
@@ -226,7 +249,21 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
         playerListEntries = null;
 
     }
+    public override void OnJoinedLobby()
+    {
+        // whenever this joins a new lobby, clear any previous room lists
+        cachedRoomList.Clear();
+        ClearRoomListView();
+        Debug.Log("Joined Lobby");
+    }
 
+    // note: when a client joins / creates a room, OnLeftLobby does not get called, even if the client was in a lobby before
+    public override void OnLeftLobby()
+    {
+        cachedRoomList.Clear();
+        ClearRoomListView();
+        Debug.Log("Onleft lobby");
+    }
 
     private void SetActivePanel(string panelName)
     {

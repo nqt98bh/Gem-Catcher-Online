@@ -15,10 +15,7 @@ namespace Photon.Pun.Demo.Asteroids
         {
             JoinRoomButton.onClick.AddListener(() =>
             {
-                if (PhotonNetwork.InLobby)
-                {
-                    PhotonNetwork.LeaveLobby();
-                }
+              
 
                 PhotonNetwork.JoinRoom(roomName);
             });
@@ -30,6 +27,7 @@ namespace Photon.Pun.Demo.Asteroids
 
             RoomNameText.text = name;
             RoomPlayersText.text = currentPlayers + " / " + maxPlayers;
+            Debug.Log("number of player:"+ currentPlayers / maxPlayers);
         }
     }
 }
