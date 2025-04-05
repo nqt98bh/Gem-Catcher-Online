@@ -87,17 +87,16 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
         {
             roomName = "Room " + Random.Range(001, 999);
         }
+        
         byte maxPlayer;
         byte.TryParse(PlayerNumberInput.text, out maxPlayer);
         maxPlayer = (byte) Mathf.Clamp(maxPlayer, 0, 8);
+        if (PlayerNumberInput.text == "") maxPlayer = 8;
         RoomOptions roomOptions = new RoomOptions { MaxPlayers = maxPlayer,PlayerTtl =100000 };
         //If a player disconnects unexpectedly, Photon keeps their data in the room for this duration before removing them.
         PhotonNetwork.CreateRoom(roomName, roomOptions,null);
     }
-    public override void OnCreatedRoom()  
-    {
-        Debug.Log("Created room");
-    }
+  
     public override void OnJoinedRoom()
     {
         // joining (or entering) a room invalidates any cached lobby room list (even if LeaveLobby was not called due to just joining a room)
@@ -123,15 +122,7 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
 
 
     }
-    public override void OnPlayerEnteredRoom(Player newPlayer)
-    {
-        GameObject player = Instantiate(PlayerListEntriesPrafab);
-        player.transform.SetParent(InsideRoomPanel.transform);
-        player.transform.localScale = Vector3.one;
-        player.GetComponent<PlayerListEntry>().Initialize(newPlayer.ActorNumber, newPlayer.NickName);
-        playerListEntries.Add(newPlayer.ActorNumber, player);
-
-    }
+   
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         SetActivePanel(SelectionPanel.name);
@@ -154,7 +145,22 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
         RoomOptions options = new RoomOptions { MaxPlayers = 8 };
         PhotonNetwork.CreateRoom(roomName, options);
     }
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        GameObject player = Instantiate(PlayerListEntriesPrafab);
+        player.transform.SetParent(InsideRoomPanel.transform);
+        player.transform.localScale = Vector3.one;
+        player.GetComponent<PlayerListEntry>().Initialize(newPlayer.ActorNumber, newPlayer.NickName);
+        playerListEntries.Add(newPlayer.ActorNumber, player);
 
+    }
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        Destroy(playerListEntries[otherPlayer.ActorNumber].gameObject);
+        playerListEntries.Remove(otherPlayer.ActorNumber);
+
+    }
+   
     //Room List//
     public void OnRoomListButtonClicked()
     {
@@ -172,6 +178,7 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
         UpdateRoomListView();
         Debug.Log("Updated room list");
     }
+    
 
     private void UpdateRoomListView()
     {
@@ -183,6 +190,7 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
             entry.GetComponent<RoomListEntry>().Initialize(info.Name,(byte) info.PlayerCount, (byte) info.MaxPlayers);
             roomListEntries.Add(info.Name, entry);
         }
+        Debug.Log("ROOM LIST IS UPDATED");
     }
     private void ClearRoomListView()
     {
@@ -229,6 +237,7 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.LeaveLobby();
         }
+        SetActivePanel(SelectionPanel.name);
     }
 
     //Inside Room//
@@ -237,6 +246,13 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
         
             PhotonNetwork.LeaveRoom();
         
+    }
+    public void OnStartButtonClicked()
+    {
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        PhotonNetwork.CurrentRoom.IsVisible = false;
+        if (PhotonNetwork.IsMasterClient) PhotonNetwork.LoadLevel("Game");
+        else Debug.LogWarning("You are not the master client!!");
     }
     public override void OnLeftRoom()
     {
@@ -247,6 +263,7 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
         }
         playerListEntries.Clear();
         playerListEntries = null;
+
 
     }
     public override void OnJoinedLobby()
