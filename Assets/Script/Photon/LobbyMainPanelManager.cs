@@ -31,7 +31,7 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
 
     [Header("Inside Room Panel")]
     public GameObject InsideRoomPanel;
-
+    public GameObject StartButton;
     public GameObject PlayerListEntriesPrafab;
 
     private Dictionary<string, RoomInfo> cachedRoomList; //bộ nhớ đệm Room List
@@ -119,7 +119,7 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
             
             playerListEntries.Add(p.ActorNumber, entry);
         }
-
+        StartButton.SetActive(PhotonNetwork.IsMasterClient);
 
     }
    
@@ -160,7 +160,11 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
         playerListEntries.Remove(otherPlayer.ActorNumber);
 
     }
-   
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        StartButton.SetActive(PhotonNetwork.IsMasterClient);
+    }
+
     //Room List//
     public void OnRoomListButtonClicked()
     {

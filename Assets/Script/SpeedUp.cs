@@ -4,19 +4,12 @@ using UnityEngine;
 
 public class SpeedUp : MonoBehaviour
 {
-    //private ScoreManager scoreManager;
-    public float speed = 5f;
-   
-    void Update()
-    {
-        //transform.Translate(Vector3.down * speed * Time.deltaTime); //tạo chuyển dộng rơi xuống
-        
-    }
+    [SerializeField] private CharacterMovement CharacterMovement;
+    [SerializeField] private float speed;
 
-    void Awake()
+    private void Awake()
     {
-        //scoreManager = FindObjectOfType<CharacterMovement>();
-        
+        CharacterMovement = GetComponent<CharacterMovement>();
     }
     void OnTriggerEnter2D(Collider2D other) //other là thông tin của bất kì collider va chạm với collider này
     {
@@ -26,7 +19,7 @@ public class SpeedUp : MonoBehaviour
             AudioSource audioSource = other.GetComponent<AudioSource>();
             audioSource.Play();
             Destroy(gameObject); //xóa GameObject đang gắn collider này, GameObject chính là đối tượng dc gắn script này
-            CharacterMovement.Instance.EatDiamond();
+            CharacterMovement.EatDiamond();
             Debug.Log("SpeedUp");
             
         }

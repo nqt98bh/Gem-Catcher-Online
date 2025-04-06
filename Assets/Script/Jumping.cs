@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,18 +9,25 @@ public class Jumping : MonoBehaviour
     [SerializeField] private float jumpForce = 1f; // Lực nhảy
     public LayerMask groundLayer; // Layer cho mặt đất
     private Rigidbody2D rb;
+    PhotonView PV;
 
     private int jumpCount; // Đếm số lần nhảy
     private bool isGrounded; // Kiểm tra có đang trên mặt đất
 
+    private void Awake()
+    {
+        PV = GetComponent<PhotonView>();
+        rb = GetComponent<Rigidbody2D>();
+
+    }
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         jumpCount = 0; // Khởi tạo số lần nhảy
     }
 
     void Update()
     {
+        if (!PV.IsMine) return;
         // Kiểm tra nhảy
         if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || jumpCount < 2))
         {

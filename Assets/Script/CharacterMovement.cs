@@ -1,10 +1,10 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    public static CharacterMovement Instance;
     public float speed = 5.0f;
     private Animator animator;
     private Camera mainCamera;
@@ -12,31 +12,24 @@ public class CharacterMovement : MonoBehaviour
     public float originalSpeed;
     private bool isBoosted = false;
     private Rigidbody rb;
+    PhotonView PV;
 
     private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-    }
-    void Start()
     {
         animator = GetComponent<Animator>();
         mainCamera = Camera.main;
         originalSpeed = speed;
         rb = GetComponent<Rigidbody>();
+        PV = GetComponent<PhotonView>();
     }
+   
 
  
     void Update()
     {
+        if (!PV.IsMine) return;
         PlayerMover();
+        
     }
 
     void PlayerMover()
