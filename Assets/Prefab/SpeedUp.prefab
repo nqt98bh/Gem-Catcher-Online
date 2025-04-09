@@ -171,5 +171,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8a159cd7d3ecd4b8237df2f7a11618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterMovement: {fileID: 875791855158099270, guid: b0d0d177a5fbd494a831138f272533cb, type: 3}
   speed: 2

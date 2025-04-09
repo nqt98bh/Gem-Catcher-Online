@@ -172,4 +172,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   extraTime: 5
-  speed: 5
+  speed: 2

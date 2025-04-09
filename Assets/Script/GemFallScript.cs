@@ -24,7 +24,7 @@ public class GemProperties
 
 public class GemFallScript : MonoBehaviour
 {
-    [SerializeField] private float spawnForce = 100f;
+    [SerializeField] private float spawnForce = 50f;
     public List<GemProperties> gemProperties;
     private Dictionary<GemType, float> timers = new Dictionary<GemType, float>(); // Track timers for each gem type
 
