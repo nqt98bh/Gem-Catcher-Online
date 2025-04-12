@@ -1,16 +1,22 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScoreReduce : MonoBehaviour
+public class ScoreReduce : MonoBehaviourPun,ISpawnableGem
 {
-    public float speed = 5f;
-    void Update()
+    Rigidbody2D rb;
+    Vector2 direction;
+    float speed = 5f;
+    void Awake()
     {
         //transform.Translate(Vector3.down * speed * Time.deltaTime); //tạo chuyển dộng rơi xuống
-
+        rb = GetComponent<Rigidbody2D>();
     }
-
+    private void Update()
+    {
+        transform.Translate(direction * speed * Time.deltaTime);
+    }
     void OnTriggerEnter2D(Collider2D other) //other là thông tin của bất kì collider va chạm với collider này
     {
         //thiết lập diều kiện kiểm tra thông tin của OTHER
@@ -18,19 +24,33 @@ public class ScoreReduce : MonoBehaviour
         {
             AudioSource audioSource = other.GetComponent<AudioSource>();
             audioSource.Play();
-            Destroy(gameObject); //xóa GameObject đang gắn collider này, GameObject chính là đối tượng dc gắn script này
+            DestroyItem();
+
             OnTriggerEnterProcess();
         }
 
         else if (other.gameObject.CompareTag("Ground"))
         {
-            Destroy(gameObject); //xóa GameObject đang gắn collider này, GameObject chính là đối tượng dc gắn script này
+            DestroyItem();
 
         }
     }
-
+    void DestroyItem()
+    {
+        if (photonView.IsMine)
+        {
+            PhotonNetwork.Destroy(gameObject);
+        }
+    }
     protected virtual void OnTriggerEnterProcess ()
     {
         ScoreManager.Instance.Reducescore(1);
+    }
+
+    public void SetDirection(Vector2 dir)
+    {
+        
+            direction = dir.normalized;
+        
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -45,7 +46,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Update()
     {
-        UpdateUI();
+       // UpdateUI();
     }
     private IEnumerator CountdownTimer()
     {
@@ -65,7 +66,7 @@ public class ScoreManager : MonoBehaviour
 
     public void UpdateUI()
     {
-        scoreText.text = "Score:" + score + "/ Time:" + Mathf.CeilToInt(remainingTime);//làm tròn thành số nguyên
+        //scoreText.text = "Score:" + score + "/ Time:" + Mathf.CeilToInt(remainingTime);//làm tròn thành số nguyên
 
     }
     private void GameOver()
@@ -79,9 +80,21 @@ public class ScoreManager : MonoBehaviour
 
     public void Addscore(int amount ) //hàm nhận giá trị int và tên amount
     {
-        
+        //object Score;
+        //if(PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("score",out Score))
+        //{
+        //    score = (int) Score;
+        //}
+        //ExitGames.Client.Photon.Hashtable scoreProp = new ExitGames.Client.Photon.Hashtable();
+        //scoreProp["score"] = score;
+        //PhotonNetwork.LocalPlayer.SetCustomProperties(scoreProp);
         score += amount;
+
         Debug.Log("addscore");
+    }
+    public void ShowScore()
+    {
+        //foreach()
     }
     public void Reducescore(int x) 
     {

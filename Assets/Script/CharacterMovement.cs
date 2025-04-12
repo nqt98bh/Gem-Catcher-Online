@@ -1,7 +1,9 @@
 ﻿using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class CharacterMovement : MonoBehaviour
     private bool isBoosted = false;
     private Rigidbody rb;
     PhotonView PV;
+    int score = 0;
 
     private void Awake()
     {
@@ -29,7 +32,10 @@ public class CharacterMovement : MonoBehaviour
     {
         if (!PV.IsMine) return;
         PlayerMover();
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ShowScores();
+        }
     }
 
     void PlayerMover()
@@ -81,4 +87,31 @@ public class CharacterMovement : MonoBehaviour
         isBoosted = false;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        object Score;
+        if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("score", out Score))
+        {
+            score = (int)Score;
+        }
+        score++;
+        ExitGames.Client.Photon.Hashtable scoreProp = new ExitGames.Client.Photon.Hashtable();
+        scoreProp["score"] = score;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(scoreProp);
+    }
+    public void ShowScores()
+    {
+        foreach (Player player in PhotonNetwork.PlayerList)
+        {
+            object score;
+            if (player.CustomProperties.TryGetValue("score", out score))
+            {
+                Debug.Log($"{player.NickName}: {score}");
+            }
+            else
+            {
+                Debug.Log($"{player.NickName}: No score yet");
+            }
+        }
+    }
 }

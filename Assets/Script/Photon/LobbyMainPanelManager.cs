@@ -249,7 +249,7 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
     {
         
             PhotonNetwork.LeaveRoom();
-        
+        //PhotonNetwork.JoinLobby();
     }
     public void OnStartButtonClicked()
     {

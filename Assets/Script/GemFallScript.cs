@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,13 +23,17 @@ public class GemProperties
     public float SpawnInterval;
 }
 
-public class GemFallScript : MonoBehaviour
+public class GemFallScript : MonoBehaviourPun
 {
     [SerializeField] private float spawnForce = 50f;
+    [SerializeField] private float spawnSpeed = 5f;
+
     public List<GemProperties> gemProperties;
     private Dictionary<GemType, float> timers = new Dictionary<GemType, float>(); // Track timers for each gem type
-
     private Camera mainCamera;
+
+
+   
     private void Start()
     {
         mainCamera = Camera.main;
@@ -49,63 +54,64 @@ public class GemFallScript : MonoBehaviour
                 timers[property.gemType] = 0f; // set timer to zero
             }
 
-            if(gemProperties.IndexOf(property) == 3)
-            {
-
-            }
+           
 
         }
-        foreach (var property in gemProperties)
-        {
-            
-            Debug.Log(timers[property.gemType]);
-        }
-
-        for (int i = 0; i < gemProperties.Count; i++)
-        {
-            var property = gemProperties[i];
-            if (timers.ContainsKey(property.gemType))
-            {
-                timers[property.gemType] = 0f; // update timer to zero
-            }
-            else
-            {
-                timers.Add(property.gemType, property.SpawnInterval); //init 
-                timers[property.gemType] = 0f; // set timer to zero
-            }
-
-            if(i == 3)
-            {
-
-            }
-        }
-
+       
     }
 
     void Update()
     {
-        // Update timers for each gem type
+       if(!PhotonNetwork.IsMasterClient) return;
+        SpawnGem();
+
+
+    }
+
+    public void SpawnGem()
+    {
         foreach (var property in gemProperties)
         {
+            
             timers[property.gemType] += Time.deltaTime; // Increment timer
 
             // Check if the timer has reached the spawn interval
-            if (timers[property.gemType] >= property.SpawnInterval)
+            if (timers[property.gemType] >= property.SpawnInterval )
             {
-                SpawnGem(property); // Spawn the gem
+               
+                Vector2 spawnDirection = GetRandomSpawnDirection();
+                Vector2 spawnPosition = GetRandomSpawnPosition(spawnDirection);
+                //Spawn(property); // Spawn the gem
+                GameObject gem = PhotonNetwork.Instantiate(property.GemPrefab.name, spawnPosition, Quaternion.identity);
+
+                int viewID = gem.GetComponent<PhotonView>().ViewID;
+                photonView.RPC("RPC_SetDirection", RpcTarget.AllBuffered, viewID, spawnDirection);
                 timers[property.gemType] = 0f; // Reset timer
             }
         }
     }
 
-    void SpawnGem(GemProperties property)
+    [PunRPC]
+    void RPC_SetDirection(int viewID, Vector2 direction)
+    {
+        PhotonView view = PhotonView.Find(viewID);
+        if (view != null)
+        {
+            ISpawnableGem gem = view.GetComponent<ISpawnableGem>();
+            if (gem != null)
+            {
+                
+                gem.SetDirection(direction);
+            }
+        }
+    }
+    void Spawn(GemProperties property)
     {
 
         Vector2 spawnDirection = GetRandomSpawnDirection();
         Vector2 spawnPosition = GetRandomSpawnPosition(spawnDirection);
        
         GameObject Gems = Instantiate(property.GemPrefab, spawnPosition, Quaternion.identity);
-
         //tạo một bản sao của Gem tại vị trí và hướng quy định
         //int randomNumber = Random.Range(0, gemProperties.Count);
         //GameObject go = gemProperties[randomNumber].GemPrefab; //take an object from the list

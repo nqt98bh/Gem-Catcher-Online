@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7583525255874493514}
   - component: {fileID: 1844494522193981315}
   - component: {fileID: 5215454178783334107}
+  - component: {fileID: 4630393932916500307}
   m_Layer: 5
   m_Name: PlayerCanvas
   m_TagString: Untagged
@@ -103,6 +104,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4630393932916500307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2781084281479068014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d245104e39a70064496f560bdf278c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPV: {fileID: -4330041925987563163}
+  text: {fileID: 4575498520339615426}
 --- !u!1 &4205289711880792777
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,9 +228,9 @@ Transform:
   m_GameObject: {fileID: 6636843331219392572}
   serializedVersion: 2
   m_LocalRotation: {x: 0.00008726013, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3, y: -3.18, z: -0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0.3, y: -3, z: -0}
+  m_LocalScale: {x: 4.59, y: 4.59, z: 1.5300001}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8692959551146198977}
   m_Father: {fileID: 0}
@@ -489,7 +504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JumpAudioSource: {fileID: 2815329974213494749}
-  jumpForce: 3
+  jumpForce: 4
   groundLayer:
     serializedVersion: 2
     m_Bits: 4294967295
