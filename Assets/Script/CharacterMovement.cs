@@ -32,10 +32,7 @@ public class CharacterMovement : MonoBehaviour
     {
         if (!PV.IsMine) return;
         PlayerMover();
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ShowScores();
-        }
+       
     }
 
     void PlayerMover()
@@ -87,31 +84,48 @@ public class CharacterMovement : MonoBehaviour
         isBoosted = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.CompareTag("ScoreIncrease"))
+        {
+            UpdateScore(1);
+        }
+        else if (other.CompareTag("ScoreDecrease"))
+        {
+            UpdateScore(-1);
+        }
+       
+    }
+
+    private void UpdateScore(int amount)
+    {
+        if (!PV.IsMine)
+        {
+            return;
+        }
         object Score;
         if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("score", out Score))
         {
             score = (int)Score;
         }
-        score++;
+        score+= amount;
         ExitGames.Client.Photon.Hashtable scoreProp = new ExitGames.Client.Photon.Hashtable();
         scoreProp["score"] = score;
         PhotonNetwork.LocalPlayer.SetCustomProperties(scoreProp);
     }
-    public void ShowScores()
-    {
-        foreach (Player player in PhotonNetwork.PlayerList)
-        {
-            object score;
-            if (player.CustomProperties.TryGetValue("score", out score))
-            {
-                Debug.Log($"{player.NickName}: {score}");
-            }
-            else
-            {
-                Debug.Log($"{player.NickName}: No score yet");
-            }
-        }
-    }
+    //public void ShowScores()
+    //{
+    //    foreach (Player player in PhotonNetwork.PlayerList)
+    //    {
+    //        object score;
+    //        if (player.CustomProperties.TryGetValue("score", out score))
+    //        {
+    //            Debug.Log($"{player.NickName}: {score}");
+    //        }
+    //        else
+    //        {
+    //            Debug.Log($"{player.NickName}: No score yet");
+    //        }
+    //    }
+    //}
 }
