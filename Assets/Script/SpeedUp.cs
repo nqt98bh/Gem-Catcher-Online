@@ -14,7 +14,7 @@ public class SpeedUp : MonoBehaviourPun,ISpawnableGem
     }
     private void Update()
     {
-        transform.Translate(direction*speed*Time.deltaTime);
+        //transform.Translate(direction*speed*Time.deltaTime);
     }
     void OnTriggerEnter2D(Collider2D other) //other là thông tin của bất kì collider va chạm với collider này
     {

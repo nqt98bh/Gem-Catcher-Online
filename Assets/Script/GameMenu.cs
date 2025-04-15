@@ -1,9 +1,11 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameMenu : MonoBehaviour
+public class GameMenu : MonoBehaviourPunCallbacks
 {
     // References to UI panels
     public GameObject pauseMenuUI;
@@ -12,7 +14,7 @@ public class GameMenu : MonoBehaviour
     public GameObject exitMenuUI;
 
     // The buttons
-    public Button buttonPause;
+    public Button buttonBackToLooby;
     public Button buttonResume;
     public Button buttonSettings;
     public Button buttonExit;
@@ -29,7 +31,7 @@ public class GameMenu : MonoBehaviour
         exitMenuUI.SetActive(false);
 
         // Set button listeners for each action
-        buttonPause.onClick.AddListener(PauseGame);
+        buttonBackToLooby.onClick.AddListener(BackToLobby);
         buttonResume.onClick.AddListener(ResumeGame);
         buttonSettings.onClick.AddListener(OpenSettings);
         buttonExit.onClick.AddListener(ExitGame);
@@ -47,6 +49,27 @@ public class GameMenu : MonoBehaviour
         }
     }
 
+    public void BackToLobby()
+    {
+        if (PhotonNetwork.InRoom)
+        {
+            Time.timeScale = 1f;
+            PhotonNetwork.LeaveRoom();
+            Debug.Log("leave room");
+
+        }
+        else
+        {
+            Debug.LogWarning("Tried to leave room but was not in a room.");
+        }
+    }
+    public override void OnLeftRoom()
+    {
+        Debug.Log("Back to Lobby");
+        SceneManager.LoadScene("Game Lobby");
+
+        //Destroy(gameObject);
+    }
     // Function to show the pause menu
     public void PauseGame()
     {

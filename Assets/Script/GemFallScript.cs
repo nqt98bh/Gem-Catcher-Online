@@ -8,11 +8,11 @@ using UnityEngine;
 [System.Serializable]
 public enum GemType 
 {
-    ScoreIncrease,
-    ScoreDecrease,
-    TimeIncrease,
-    TimeDecrease,
-    SpeedUp,
+    ScoreIncrease =0,
+    ScoreDecrease=1,
+    TimeIncrease=2,
+    TimeDecrease=3,
+    SpeedUp=4,
 }
 
 [System.Serializable]
@@ -53,26 +53,19 @@ public class GemFallScript : MonoBehaviourPun
                 timers.Add(property.gemType, property.SpawnInterval); //init 
                 timers[property.gemType] = 0f; // set timer to zero
             }
-
-           
-
         }
-       
     }
 
     void Update()
     {
        if(!PhotonNetwork.IsMasterClient) return;
         SpawnGem();
-
-
     }
 
     public void SpawnGem()
     {
         foreach (var property in gemProperties)
         {
-            
             timers[property.gemType] += Time.deltaTime; // Increment timer
 
             // Check if the timer has reached the spawn interval
@@ -82,10 +75,15 @@ public class GemFallScript : MonoBehaviourPun
                 Vector2 spawnDirection = GetRandomSpawnDirection();
                 Vector2 spawnPosition = GetRandomSpawnPosition(spawnDirection);
                 //Spawn(property); // Spawn the gem
-                GameObject gem = PhotonNetwork.Instantiate(property.GemPrefab.name, spawnPosition, Quaternion.identity);
+               // GameObject gem = PhotonNetwork.Instantiate(property.GemPrefab.name, spawnPosition, Quaternion.identity);
 
-                int viewID = gem.GetComponent<PhotonView>().ViewID;
-                photonView.RPC("RPC_SetDirection", RpcTarget.AllBuffered, viewID, spawnDirection);
+               // int viewID = gem.GetComponent<PhotonView>().ViewID;
+                //photonView.RPC("RPC_SetDirection", RpcTarget.AllBuffered, viewID, spawnDirection);
+                int typeIndex = (int) property.gemType;
+                int gemPrefabIndex = gemProperties.IndexOf(property);
+                float spawnInterval = (float) property.SpawnInterval;
+                photonView.RPC("Spawn", RpcTarget.AllViaServer, gemPrefabIndex,spawnPosition,spawnDirection);
+
                 timers[property.gemType] = 0f; // Reset timer
             }
         }
@@ -105,13 +103,14 @@ public class GemFallScript : MonoBehaviourPun
             }
         }
     }
-    void Spawn(GemProperties property)
+    [PunRPC]
+    void Spawn( int gamePrefabIndex, Vector2 position, Vector2 direction)
     {
 
-        Vector2 spawnDirection = GetRandomSpawnDirection();
-        Vector2 spawnPosition = GetRandomSpawnPosition(spawnDirection);
+        //Vector2 spawnDirection = GetRandomSpawnDirection();
+        //Vector2 spawnPosition = GetRandomSpawnPosition(spawnDirection);
        
-        GameObject Gems = Instantiate(property.GemPrefab, spawnPosition, Quaternion.identity);
+        GameObject Gems = Instantiate(gemProperties[gamePrefabIndex].GemPrefab, position, Quaternion.identity);
         //tạo một bản sao của Gem tại vị trí và hướng quy định
         //int randomNumber = Random.Range(0, gemProperties.Count);
         //GameObject go = gemProperties[randomNumber].GemPrefab; //take an object from the list
@@ -121,9 +120,9 @@ public class GemFallScript : MonoBehaviourPun
         if (gemRigidbody != null)
         {
             // Áp dụng lực theo hướng spawn
-            gemRigidbody.AddForce(spawnDirection * spawnForce, ForceMode2D.Impulse);
+            gemRigidbody.AddForce(direction * spawnForce, ForceMode2D.Impulse);
         }
-        Debug.Log("íntantiate Object " + property.GemPrefab.name);
+       
     }
     Vector2 GetRandomSpawnDirection()
     {

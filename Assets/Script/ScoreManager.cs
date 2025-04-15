@@ -29,7 +29,7 @@ public class ScoreManager : MonoBehaviour
         }
         else
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 
@@ -72,7 +72,7 @@ public class ScoreManager : MonoBehaviour
     private void GameOver()
     {
         
-        gameOverText.text = "Game Over! / Score:" + score;
+        gameOverText.text = "Game Over! ";
         GameOverPanel.SetActive(true);
         Destroy(DestroyGO1);
         Destroy(DestroyGO2);

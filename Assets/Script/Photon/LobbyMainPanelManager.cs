@@ -77,6 +77,15 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
     {
         this.SetActivePanel(RoomListPanel.name);
     }
+    public void OnExitButtonClick()
+    {
+     
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;  // Stop play mode in the editor
+#else
+            Application.Quit();  // Quit the game in a build
+#endif
+    }
 
     //Create Room//
 
