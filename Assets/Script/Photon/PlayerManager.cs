@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using System.IO;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class PlayerManager : MonoBehaviour
 {
     PhotonView PV;
+    string[] characterType = new string[2] { "Character1", "Character2" };
+    string selectCharacter;
     private void Awake()
     {
         PV = GetComponent<PhotonView>();
@@ -21,8 +24,16 @@ public class PlayerManager : MonoBehaviour
     }
     void CreateController()
     {
-       
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs","Character"),Vector3.zero,Quaternion.identity);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            selectCharacter = characterType[0];
+
+        }
+        else
+        {
+            selectCharacter = characterType[1];
+        }
+            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", selectCharacter),Vector3.zero,Quaternion.identity);
         Debug.Log("Instantiate player controller");
     }
 }

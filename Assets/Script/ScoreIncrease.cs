@@ -7,15 +7,10 @@ public class ScoreIncrease : MonoBehaviourPun,ISpawnableGem
 {
     public float speed = 5f;
     public Vector2 direction;
-    Rigidbody2D rb;
-    void Awake()
-    {
-        //transform.Translate(direction * speed * Time.deltaTime); //tạo chuyển dộng rơi xuống
-        rb = GetComponent<Rigidbody2D>();
-    }
+
     void Update()
     {
-        //transform.Translate(direction*speed*Time.deltaTime);
+       transform.Translate(direction*speed*Time.deltaTime);
     }
     void OnTriggerEnter2D(Collider2D other) //other là thông tin của bất kì collider va chạm với collider này
     {

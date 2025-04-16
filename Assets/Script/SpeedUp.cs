@@ -6,15 +6,11 @@ using UnityEngine;
 public class SpeedUp : MonoBehaviourPun,ISpawnableGem
 {
     Vector2 direction;
-    Rigidbody2D rb;
     float speed = 5f;
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
+ 
     private void Update()
     {
-        //transform.Translate(direction*speed*Time.deltaTime);
+        transform.Translate(direction*speed*Time.deltaTime);
     }
     void OnTriggerEnter2D(Collider2D other) //other là thông tin của bất kì collider va chạm với collider này
     {

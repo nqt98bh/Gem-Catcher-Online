@@ -5,17 +5,13 @@ using UnityEngine;
 
 public class ScoreReduce : MonoBehaviourPun,ISpawnableGem
 {
-    Rigidbody2D rb;
+ 
     Vector2 direction;
     float speed = 5f;
-    void Awake()
-    {
-        //transform.Translate(Vector3.down * speed * Time.deltaTime); //tạo chuyển dộng rơi xuống
-        rb = GetComponent<Rigidbody2D>();
-    }
+ 
     private void Update()
     {
-        //transform.Translate(direction * speed * Time.deltaTime);
+        transform.Translate(direction * speed * Time.deltaTime);
     }
     void OnTriggerEnter2D(Collider2D other) //other là thông tin của bất kì collider va chạm với collider này
     {

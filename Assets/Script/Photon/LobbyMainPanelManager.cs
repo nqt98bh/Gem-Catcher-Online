@@ -124,7 +124,6 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
             entry.transform.localScale = Vector3.one;
             entry.GetComponent<PlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
 
-            object isPlayerReady;
             
             playerListEntries.Add(p.ActorNumber, entry);
         }
@@ -151,7 +150,7 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         string roomName = "Room " + Random.Range(001, 999);
-        RoomOptions options = new RoomOptions { MaxPlayers = 8 };
+        RoomOptions options = new RoomOptions { MaxPlayers = 2 };
         PhotonNetwork.CreateRoom(roomName, options);
     }
     public override void OnPlayerEnteredRoom(Player newPlayer)

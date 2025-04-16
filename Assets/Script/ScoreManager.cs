@@ -80,14 +80,7 @@ public class ScoreManager : MonoBehaviour
 
     public void Addscore(int amount ) //hàm nhận giá trị int và tên amount
     {
-        //object Score;
-        //if(PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("score",out Score))
-        //{
-        //    score = (int) Score;
-        //}
-        //ExitGames.Client.Photon.Hashtable scoreProp = new ExitGames.Client.Photon.Hashtable();
-        //scoreProp["score"] = score;
-        //PhotonNetwork.LocalPlayer.SetCustomProperties(scoreProp);
+
         score += amount;
 
         Debug.Log("addscore");

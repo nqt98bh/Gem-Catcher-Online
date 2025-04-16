@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: -4330041925987563163}
   - component: {fileID: 8007923683271793068}
   m_Layer: 0
-  m_Name: Character
+  m_Name: Character2
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -276,7 +276,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 16327a4ca38d70b41b50e721181e4855, type: 3}
+  m_Sprite: {fileID: 21300000, guid: efe7af5d52abe6649abc5add1a429055, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -312,7 +312,7 @@ Animator:
   m_GameObject: {fileID: 6636843331219392572}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6c6865cdfdbeaa943a0e8881b8559e64, type: 2}
+  m_Controller: {fileID: 9100000, guid: bc937d8d2fdbec5459f9f2b246b9d860, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
