@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 11481936}
   - component: {fileID: 11466726}
   - component: {fileID: 11460614}
-  - component: {fileID: 11446524}
+  - component: {fileID: 8579224224585821161}
   m_Layer: 5
   m_Name: RoomListEntry
   m_TagString: Untagged
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: 0
   m_LayoutPriority: 1
---- !u!114 &11446524
+--- !u!114 &8579224224585821161
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -236,11 +236,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 114706}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b744eae97c5fa47879a477d0f0b667, type: 3}
+  m_Script: {fileID: 11500000, guid: e79255c5424aeeb4b96d1afe2b8be67c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoomNameText: {fileID: 11471358}
-  RoomPlayersText: {fileID: 11488528}
+  roomNameText: {fileID: 11471358}
+  roomPlayersText: {fileID: 11488528}
   JoinRoomButton: {fileID: 11484216}
 --- !u!1 &134178
 GameObject:

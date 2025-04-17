@@ -99,8 +99,8 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
         
         byte maxPlayer;
         byte.TryParse(PlayerNumberInput.text, out maxPlayer);
-        maxPlayer = (byte) Mathf.Clamp(maxPlayer, 0, 8);
-        if (PlayerNumberInput.text == "") maxPlayer = 8;
+        maxPlayer = (byte)Mathf.Clamp(maxPlayer, 0,2);
+        if (PlayerNumberInput.text == "") maxPlayer = 2;
         RoomOptions roomOptions = new RoomOptions { MaxPlayers = maxPlayer,PlayerTtl =100000 };
         //If a player disconnects unexpectedly, Photon keeps their data in the room for this duration before removing them.
         PhotonNetwork.CreateRoom(roomName, roomOptions,null);
@@ -122,7 +122,7 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
             GameObject entry = Instantiate(PlayerListEntriesPrafab); 
             entry.transform.SetParent(InsideRoomPanel.transform);
             entry.transform.localScale = Vector3.one;
-            entry.GetComponent<PlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
+            entry.GetComponent<PlayerEntry>().Initialize(p.ActorNumber, p.NickName);
 
             
             playerListEntries.Add(p.ActorNumber, entry);
@@ -158,7 +158,7 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
         GameObject player = Instantiate(PlayerListEntriesPrafab);
         player.transform.SetParent(InsideRoomPanel.transform);
         player.transform.localScale = Vector3.one;
-        player.GetComponent<PlayerListEntry>().Initialize(newPlayer.ActorNumber, newPlayer.NickName);
+        player.GetComponent<PlayerEntry>().Initialize(newPlayer.ActorNumber, newPlayer.NickName);
         playerListEntries.Add(newPlayer.ActorNumber, player);
 
     }
@@ -199,7 +199,7 @@ public class LobbyMainPanelManager : MonoBehaviourPunCallbacks
             GameObject entry = Instantiate(RoomListEntryPrefab);
             entry.transform.SetParent(RoomListContent.transform);
             entry.transform.localScale = Vector3.one;
-            entry.GetComponent<RoomListEntry>().Initialize(info.Name,(byte) info.PlayerCount, (byte) info.MaxPlayers);
+            entry.GetComponent<RoomEntry>().Initialize(info.Name,(byte) info.PlayerCount, (byte) info.MaxPlayers);
             roomListEntries.Add(info.Name, entry);
         }
         Debug.Log("ROOM LIST IS UPDATED");
